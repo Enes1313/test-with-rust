@@ -1,0 +1,6 @@
+[build]
+rustflags = ["-C", "instrument-coverage"]
+
+[env]
+CARGO_PROFILE_TEST_INCREMENTAL = "0"
+LLVM_PROFILE_FILE = "target/profraw/cargo-test-%p-%m.profraw"

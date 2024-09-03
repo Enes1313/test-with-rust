@@ -1,0 +1,35 @@
+[package]
+name = "test-with-rust"
+version = "0.1.0"
+edition = "2021"
+
+[build-dependencies]
+cc = { version = "1.0.80", features = ["parallel"] }
+bindgen = "0.66.1"
+toml = "0.7.6"
+
+[dependencies]
+mockall = { git = "https://github.com/Enes1313/mockall.git", features = [
+    "nightly",
+] }
+double = "0.2.4"
+mockall_double = "0.3.0"
+
+[package.metadata.foreigntest]
+project_path = "../test-c-project-for-rust"
+compile_commands_path = "compile_commands.json"
+exclude_header_files_paths = ["lib/**", "source/**"]
+extra_header_files_paths = [
+    "source/app/**",
+    "source/util/**",
+]
+support_header_files_path = "test-with-rust/support"
+compile_args = [
+    "-std=c99",
+    "-fprofile-arcs",
+    "-ftest-coverage",
+    "-m32",
+    "-Wno-missing-field-initializers",
+    "-funsigned-char",
+]
+linker_args = ["--coverage", "-m32", "-lm"]
