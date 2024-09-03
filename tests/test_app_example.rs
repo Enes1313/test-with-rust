@@ -4,7 +4,14 @@
 #![allow(unused)]
 #![feature(c_variadic)]
 
-include!("../bindings/util_example.rs");
+include!("../bindings/app_example.rs");
+mod outer1 {
+include!("../mocks/mock_util_example.rs");
+}
+
+mod outer2 {
+include!("../mocks/mock_lib_example.rs");
+}
 
 /*
 
@@ -19,12 +26,11 @@ grcov . --binary-path ./target/debug/deps/ -s .. -t html --branch --ignore-not-e
 
 */
 
-/*
 
 use mockall::*;
 use mockall::{automock, mock, predicate::*};
 use mockall_double::double;
-
+/* 
 mod outer {
     use mockall::automock;
 
@@ -32,55 +38,25 @@ mod outer {
     pub mod ffi {
         include!("../bindings/log.rs");
     }
-}
+}*/
 
 #[double]
-use outer::ffi;
-
-*/
+use outer2::ffi;
 
 #[cfg(test)]
-mod util_sum {
+mod app_init {
     use super::*;
 
     #[test]
-    fn sum__success() {
-        /*
-        let mock = func_context();
-        mock.expect().once().return_const(());
-*/      
-        let mut result: ::core::ffi::c_int = 0;
+    fn init__success() {
+        
+        let mock = ffi::lib_init_context();
+        mock.expect().once().return_const(true);
 
         unsafe {
-        //    result = util_sum(2, 7, 5);
+            app_init();
         }
-
-        //assert_eq!(result, 12);
     }
 
     // another tests for util_sum
-}
-
-#[cfg(test)]
-mod util_mult {
-    use super::*;
-
-    #[test]
-    fn multiplication__success() {
-        /*
-        let mock = func_context();
-        mock.expect().once().return_const(());
-*/      
-        let mut b : bool = false;
-        let mut out: ::core::ffi::c_int = 0;
-
-        unsafe {
-        //     b = util_mult(5, 7, &mut out);
-        }
-
-        //assert_eq!(b, true);
-        //assert_eq!(out, 35);
-    }
-
-    // another tests for util_mult
 }

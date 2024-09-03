@@ -9,9 +9,7 @@ bindgen = "0.66.1"
 toml = "0.7.6"
 
 [dependencies]
-mockall = { git = "https://github.com/Enes1313/mockall.git", features = [
-    "nightly",
-] }
+mockall = { git = "https://github.com/Enes1313/mockall.git"}
 double = "0.2.4"
 mockall_double = "0.3.0"
 

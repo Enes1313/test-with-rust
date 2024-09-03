@@ -259,10 +259,10 @@ fn main() {
         // for util_example : use x
         // for app_example : use y
 
-        let x = project_path.join("source/util/util_example.c");
-        // let y = project_path.join("source/app/app_example.c");
+        // let x = project_path.join("source/util/util_example.c");
+        let y = project_path.join("source/app/app_example.c");
         // sources
-        let c_modules_path_for_test = vec![x.to_str().expect("Path is not a valid string")];
+        let c_modules_path_for_test = vec![y.to_str().expect("Path is not a valid string")];
 
         cc::Build::new()
             .files(c_modules_path_for_test)
@@ -277,7 +277,7 @@ fn main() {
             // .flag_if_supported("-fprofile-arcs")
             // .flag_if_supported("-ftest-coverage")
             .includes(vec![project_path
-                .join("source/util/util_example.h")
+                .join("source/app/app_example.h")
                 .parent()
                 .unwrap()
                 .to_str()
@@ -289,7 +289,7 @@ fn main() {
                 .to_str()
                 .expect("msg"),
                 project_path
-                .join("source/app/app_example.h")
+                .join("source/util/util_example.h")
                 .parent()
                 .unwrap()
                 .to_str()
